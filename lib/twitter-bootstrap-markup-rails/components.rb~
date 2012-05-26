@@ -10,7 +10,6 @@ module Twitter::Bootstrap::Markup::Rails
     autoload :Navigation, 'twitter-bootstrap-markup-rails/components/navigation'
     autoload :Modal, 'twitter-bootstrap-markup-rails/components/modal'
     autoload :ProgressBar, 'twitter-bootstrap-markup-rails/components/progress_bar'
-    autoload :Thumbnail, 'twitter-bootstrap-markup-rails/components/thumbnail'
   end
 end
 
