@@ -8,7 +8,7 @@ module Twitter::Bootstrap::Markup::Rails::Helpers
     #           :alt        - The String text when image is moused over
     #           :heading      - The String heading message to render
     #           :message      - The String content message to render
-    #           :html_options - Any additional HTML options desired on the alert DIV.
+    #           :html_options - Any additional HTML options desired on the thumbnail DIV.
     #
     # Examples
     #
@@ -17,12 +17,21 @@ module Twitter::Bootstrap::Markup::Rails::Helpers
     #
     # Returns HTML String for the alert
     def bootstrap_thumbnail(img_url, options = {})
-      Twitter::Bootstrap::Markup::Rails::Components::Thumbnail.new(
-        img_url,
+      thumbnail = Twitter::Bootstrap::Markup::Rails::Components::Thumbnail.new(
+                    img_url,
+                    options
+                  )
+      Twitter::Bootstrap::Markup::Rails::Components::ThumbnailList.new(
+        [thumbnail],
         options
       ).to_s
     end
 
-    
+    def bootstrap_thumbnail_list(thumbnails, options = {})
+      Twitter::Bootstrap::Markup::Rails::Components::ThumbnailList.new(
+        thumbnails,
+        options
+      ).to_s
+    end
   end
 end
