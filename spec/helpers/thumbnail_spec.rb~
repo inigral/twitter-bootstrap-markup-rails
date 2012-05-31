@@ -50,16 +50,5 @@ describe ThumbnailHelper do
     end
 
     it 'should have class thumbnails' do
-      concat boostrap_thumbnail_list(thumbnails)
-      @output_buffer.should have_tag('ul.thumbnails')
-    end
-
-    it 'should have the correct number of elements' do
-      concat bootstrap_thumbnail_list(thumbnails)
-      @output_bufffer.should
-    end
-
-    it 'should only have thumbnail elements' do
-
-    end
+      concat boostrap_thumbnail_list(
 end

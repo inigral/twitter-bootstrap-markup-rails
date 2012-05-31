@@ -30,7 +30,7 @@ module Twitter::Bootstrap::Markup::Rails::Components
     end
 
     def build_main_tag
-      if options[:link].nil?
+      if options[:message].nil? && options[:heading].nil?
         build_a_tag
       else
         content_tag(:div, { :class => options[:class] })

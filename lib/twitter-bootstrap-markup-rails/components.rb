@@ -11,6 +11,7 @@ module Twitter::Bootstrap::Markup::Rails
     autoload :Modal, 'twitter-bootstrap-markup-rails/components/modal'
     autoload :ProgressBar, 'twitter-bootstrap-markup-rails/components/progress_bar'
     autoload :Thumbnail, 'twitter-bootstrap-markup-rails/components/thumbnail'
+    autoload :ThumbnailList, 'twitter-bootstrap-markup-rails/components/thumbnail_list'
   end
 end
 
