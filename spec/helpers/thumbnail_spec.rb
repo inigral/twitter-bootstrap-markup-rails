@@ -55,14 +55,26 @@ describe ThumbnailHelper do
       @output_buffer.should have_tag('ul.thumbnails')
     end
 
+    it 'should have a list with a span class on each element' do
+      concat bootstrap_thumbnail_list do |t|
+               t.bootstrap_thumbnail "imgs/fluffy_cat.jpg"
+               t.bootstrap_thumbnail "imgs/scruffy_cat.jpg"
+               t.bootstrap_thumbnail "imgs/snuffy_cat.jpg"
+             end
+
+      3.times do |i|
+        @output_buffer.should have_tag("li:nth-of-type(#{i})", :class => "span12")
+      end
+    end
+
     it 'should have the correct number of elements' do
       concat bootstrap_thumbnail_list do |t|
                t.bootstrap_thumbnail "imgs/fluffy_cat.jpg"
                t.bootstrap_thumbnail "imgs/scruffy_cat.jpg"
              end
 
-      @output_buffer.should have_tag("ul:first-child, img[src='imgs/fluffy_cat.jpg']")
-      @output_buffer.should have_tag("ul:last-child, img[src='imgs/scruffy_cat.jpg']")
+      @output_buffer.should have_tag("ul:first-child", "img[src='imgs/fluffy_cat.jpg']")
+      @output_buffer.should have_tag("ul:last-child", "img[src='imgs/scruffy_cat.jpg']")
     end
 
     it 'should only have thumbnail elements' do
@@ -73,4 +85,5 @@ describe ThumbnailHelper do
       @output_buffer.should have_tag("img[src='imgs/fluffy_cat.jpg']")
       @output_buffer.should have_tag("img[src='imgs/scruffy_cat.jpg']")
     end
+  end
 end
