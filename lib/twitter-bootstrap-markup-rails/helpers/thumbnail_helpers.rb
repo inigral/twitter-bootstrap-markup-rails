@@ -23,7 +23,25 @@ module Twitter::Bootstrap::Markup::Rails::Helpers
       ).to_s
     end
 
-    def bootstrap_thumbnail_list(thumbnails, options = {})
+    # Renders a thumbnail list
+    #
+    # @param [Hash] options hash containing options (default: {}):
+    #
+    # Examples
+    #
+    #   bootstrap_thumbnail_list do |e|
+    #     e.bootstrap_thumbnail "imgs/fluffy_cat.jpg"
+    #     e.bootstrap_thumbnail "imgs/scruffy_cat.jpg"
+    #   end
+    #
+    # Returns HTML String for the list
+    #
+    def bootstrap_button_dropdown(options = {})
+      # Elements will hold every call made to this block. Self is passed in so the
+      # elements can be sent to it in order to be evaluated
+      thumbnails = Twitter::Bootstrap::Markup::Rails::HelperCollection.new(self)
+
+      yield thumbnails
       Twitter::Bootstrap::Markup::Rails::Components::ThumbnailList.new(
         thumbnails,
         options

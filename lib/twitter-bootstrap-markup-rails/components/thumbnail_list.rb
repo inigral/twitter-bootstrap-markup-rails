@@ -8,7 +8,15 @@ module Twitter::Bootstrap::Markup::Rails::Components
     end
 
     def to_s
-      output_buffer << content_tag(:ul, { :class => options[:class] }, build_thumbnail_tags).html_safe
+      output_buffer << content_tag(:ul, build_class.reverse_merge(options[:html_options]) do
+        html_text = ""        
+
+        @thumbnails.each do |t|
+          html_text << content_tag(:li, :class => t.options[:span] , t.to_s)
+        end
+
+        html_text.html_safe
+      end
       super
     end
 
@@ -21,11 +29,10 @@ module Twitter::Bootstrap::Markup::Rails::Components
       }
     end
 
-    def build_thumbnail_tags
-      html_text = ""
-      @thumbnails.each do |thumbnail|
-        html_text << content_tag(:li, { :class => thumbnail.options[:span] }, thumbnail)
-      end.html_safe
+    def build_class
+      classes => [options[:class]]
+      classes << options[:html_options][:class] if options[:html_options][:class]
+      classes.join(" ")
     end
   end
 end

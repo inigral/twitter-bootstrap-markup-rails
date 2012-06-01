@@ -8,10 +8,10 @@ module Twitter::Bootstrap::Markup::Rails::Components
     end
 
     def to_s
-      output_buffer << build_main_tag do
+      output_buffer << build_div_or_a_tag do
         html_text = ""
         html_text << build_img_tag
-        html_text << build_caption_tag if !options[:message].nil? || !options[:heading].nil?
+        html_text << build_caption_tag if options[:message] || options[:heading]
       end.html_safe
       super
     end
@@ -21,6 +21,7 @@ module Twitter::Bootstrap::Markup::Rails::Components
     def default_options
       {
         :class => 'thumbnail',
+        :span => 'span12',
         :link => nil,
         :alt => "",
         :heading => nil,
@@ -29,19 +30,15 @@ module Twitter::Bootstrap::Markup::Rails::Components
       }
     end
 
-    def build_main_tag
-      if options[:link].nil?
-        build_a_tag
-      else
-        content_tag(:div, { :class => options[:class] })
-      end
-    end
+    def build_div_or_a_tag
+      class_options = { :class => build_class }
 
-    def build_a_tag
-      if options[:link].nil?
-        content_tag(:a, { :class => options[:class] })
+      if options[:message] || options[:heading]
+        content_tag(:div, class_options.reverse_merge(options[:html_options]))
+      elsif options[:link]
+        content_tag(:a, class_options.merge({:href => options[:link]}).reverse_merge(options[:html_options]))
       else
-        content_tag(:a, { :href => options[:link], :class => options[:class] })
+        content_tag(:a, class_options.reverse_merge(options[:html_options]))
       end
     end
 
@@ -54,6 +51,12 @@ module Twitter::Bootstrap::Markup::Rails::Components
       html_text << content_tag(:h5, options[:heading]) if !options[:heading].nil?
       html_text << content_tag(:p, options[:message]) if !options[:message].nil?
       content_tag(:div, { :class => "caption" }, html_text.html_safe)
+    end
+
+    def build_class
+      classes = [options[:class]]
+      classes << options[:html_options][:class] if options[:html_options][:class]
+      classes.join(" ")
     end
   end
 end
