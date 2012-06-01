@@ -13,7 +13,8 @@ module Twitter::Bootstrap::Markup::Rails::Helpers
     #
     #   bootstrap_progress_bar_tag 40, :type => ['info', 'striped'], :active => true
     #
-    def bootstrap_progress_bar_tag(width, options = {})
+    # Returns HTML for a progress bar
+    def bootstrap_progress_bar(width, options = {})
       Twitter::Bootstrap::Markup::Rails::Components::ProgressBar.new(
         width,
         options
