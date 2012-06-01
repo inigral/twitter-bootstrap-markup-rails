@@ -45,21 +45,32 @@ describe ThumbnailHelper do
   end
 
   describe '#bootstrap_thumbnail_list' do
-    before do
-      thumbnail_a = Twitter::Bootstrap::Markup::Rails::Components::Thumbnail.new(
-    end
 
     it 'should have class thumbnails' do
-      concat boostrap_thumbnail_list(thumbnails)
+      concat bootstrap_thumbnail_list do |t|
+               t.bootstrap_thumbnail "imgs/fluffy_cat.jpg"
+               t.bootstrap_thumbnail "imgs/scruffy_cat.jpg"
+             end
+
       @output_buffer.should have_tag('ul.thumbnails')
     end
 
     it 'should have the correct number of elements' do
-      concat bootstrap_thumbnail_list(thumbnails)
-      @output_bufffer.should
+      concat bootstrap_thumbnail_list do |t|
+               t.bootstrap_thumbnail "imgs/fluffy_cat.jpg"
+               t.bootstrap_thumbnail "imgs/scruffy_cat.jpg"
+             end
+
+      @output_buffer.should have_tag("ul:first-child, img[src='imgs/fluffy_cat.jpg']")
+      @output_buffer.should have_tag("ul:last-child, img[src='imgs/scruffy_cat.jpg']")
     end
 
     it 'should only have thumbnail elements' do
-
+      concat bootstrap_thumbnail_list do |t|
+               t.bootstrap_thumbnail "imgs/fluffy_cat.jpg"
+               t.bootstrap_thumbnail "imgs/scruffy_cat.jpg"
+             end
+      @output_buffer.should have_tag("img[src='imgs/fluffy_cat.jpg']")
+      @output_buffer.should have_tag("img[src='imgs/scruffy_cat.jpg']")
     end
 end
