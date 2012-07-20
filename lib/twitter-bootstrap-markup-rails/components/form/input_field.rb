@@ -5,6 +5,13 @@ module Twitter::Bootstrap::Markup::Rails::Components
     def initialize(object_name, method, input_html, options = {})
       super(options)
       @input_html = input_html
+      if options[:label_tooltip]
+        html = ''
+        html << options[:label_text] << ' ' if options[:label_text]
+        html << content_tag(:span, '', :class => 'icon-question-sign', :rel => 'tooltip',
+                                       :title => options.delete(:label_tooltip))
+        options[:label_text] = html.html_safe
+      end
       @label_html = Label.new(object_name, method, options) if options[:label] || options[:label_text]
     end
 
